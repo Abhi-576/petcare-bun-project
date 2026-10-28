@@ -443,7 +443,7 @@ export function StayUpdatesPanel() {
           updates.map((u) => (
             <div className="list-row" key={u.id}>
               <span className="note-icon">
-                <Camera size={17} />
+                {/* <Camera size={17} /> */}
               </span>
               <div className="row-info">
                 <strong>{u.message}</strong>

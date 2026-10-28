@@ -149,7 +149,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" | "forgot" }) {
                     <select
                       id="role"
                       value={role}
-                      onChange={(e) => setRole(e.target.value)}
+                      onChange={(e) => setRole(e.target.value as "OWNER" | "SITTER")}
                     >
                       <option value="OWNER">Pet owner</option>
                       <option value="SITTER">Pet sitter</option>
