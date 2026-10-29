@@ -59,6 +59,18 @@ function toCard(x: ApiHomeSitter) {
     home: x.about,
   };
 }
+async function setRandomDogImage(img: HTMLImageElement): Promise<void> {
+  try {
+    const response = await fetch("https://dog.ceo/api/breeds/image/random");
+    const data = await response.json();
+
+    if (response.ok && data.status === "success") {
+      img.src = data.message;
+    }
+  } catch {
+    img.src = "https://images.dog.ceo/breeds/labrador/n02099712_2223.jpg";
+  }
+}
 export function HomeClient() {
   const router = useRouter();
   const [featured, setFeatured] = useState<ReturnType<typeof toCard>[]>([]);
@@ -319,8 +331,10 @@ export function HomeClient() {
           <div className="container feature-grid">
             <img
               className="feature-img"
-              src="https://images.unsplash.com/photo-1601758123927-1968b747d857?auto=format&fit=crop&w=1200&q=85"
-              alt="A dog resting comfortably at home"
+              alt="A random dog"
+              ref={(img) => {
+                if (img) void setRandomDogImage(img);
+              }}
             />
             <div>
               <div className="eyebrow">The PetCare difference</div>
