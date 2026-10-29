@@ -4,7 +4,6 @@ import { getSession } from "@/lib/auth";
 import { handleApiError, jsonError } from "@/lib/api";
 import { prisma } from "@/lib/prisma";
 import { bookingSchema } from "@/lib/validation";
-import { any } from "zod";
 
 export async function GET(request: NextRequest) {
   const user = await getSession();
@@ -23,9 +22,9 @@ export async function GET(request: NextRequest) {
   ];
   const statusFilter =
     status && validStatuses.includes(status)
-      ? { status: status as BookingStatus } //(typeof validStatuses)[number] }
+      ? { status: status as BookingStatus }
       : {};
-  const where: Prisma.BookingWhereInput =
+  const where =
     user.role === "ADMIN"
       ? statusFilter
       : user.role === "SITTER"

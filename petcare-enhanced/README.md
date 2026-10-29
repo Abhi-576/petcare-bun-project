@@ -112,3 +112,11 @@ Create an owner or sitter account from `/auth/register`. Sitter profiles become 
 - Integrate a real payment provider and webhook verification before accepting payments.
 - Admin moderation endpoints are available, but operational policies, audit logging, appeal handling, and independent verification integrations must be reviewed before a public launch.
 - Never commit `.env`, credentials, real ID documents, or payment details.
+
+## Recent project enhancements
+
+- The global header reads the current session from `/api/auth/me` and shows the signed-in user's first name, role-specific dashboard and messages links, and a logout action. Logging out clears the session cookie through `/api/auth/logout`.
+- Owners and sitters have message links. Booking conversations are stored in the database and messages are restricted to the booking participants (administrators retain the existing support visibility).
+- A lightweight rule-based help widget is available throughout the site. It matches common keywords to built-in FAQ responses and links; it does not call an LLM or external AI service.
+
+The help widget is informational only. Payment processing, password-reset email, and external identity/background-check providers remain unconfigured and are not represented as active features.

@@ -50,6 +50,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" | "forgot" }) {
       if (!response.ok)
         throw new Error(payload.error || "Unable to authenticate.");
       setDone(true);
+      window.dispatchEvent(new Event("petcare-auth-changed"));
       const actualRole = payload.user?.role || role;
       window.setTimeout(
         () =>

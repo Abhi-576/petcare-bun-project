@@ -1456,3 +1456,231 @@ tr:last-child td {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Authenticated navigation */
+.header-greeting {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
+}
+.navright .login-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.header-logout {
+  border: 1px solid #d8dfd6;
+  white-space: nowrap;
+}
+.header-find {
+  white-space: nowrap;
+}
+/* Simple rule-based PetCare FAQ helper */
+.help-chat-root {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 80;
+  font-family: "Manrope", sans-serif;
+}
+.help-chat-launcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--green);
+  color: white;
+  padding: 14px 19px;
+  box-shadow: 0 12px 35px #10281e35;
+  font-size: 12px;
+  font-weight: 800;
+  min-height: 50px;
+}
+.help-chat-launcher:hover {
+  background: var(--deep);
+}
+.help-chat-window {
+  position: absolute;
+  right: 0;
+  bottom: 64px;
+  width: min(370px, calc(100vw - 28px));
+  height: min(560px, calc(100dvh - 120px));
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  box-shadow: 0 20px 70px #14251d2b;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.help-chat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background: var(--deep);
+  color: white;
+}
+.help-chat-avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: #ffffff1b;
+}
+.help-chat-head strong,
+.help-chat-head small {
+  display: block;
+}
+.help-chat-head strong {
+  font-size: 13px;
+}
+.help-chat-head small {
+  font-size: 9px;
+  color: #d0dbd1;
+  margin-top: 2px;
+}
+.help-chat-head > button {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: white;
+  padding: 5px;
+}
+.help-chat-messages {
+  flex: 1;
+  overflow: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  background: #fcfbf7;
+}
+.help-chat-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  max-width: 95%;
+  font-size: 11px;
+}
+.help-chat-message > svg {
+  flex-shrink: 0;
+  margin-top: 9px;
+  color: var(--green);
+}
+.help-chat-message > div {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f0eee6;
+  line-height: 1.7;
+}
+.help-chat-message p {
+  margin: 0;
+}
+.help-chat-message.user {
+  align-self: flex-end;
+  justify-content: flex-end;
+}
+.help-chat-message.user > div {
+  background: var(--sage);
+}
+.help-chat-message a {
+  display: inline-block;
+  color: var(--green);
+  font-weight: 800;
+  margin-top: 7px;
+}
+.help-chat-suggestions {
+  display: flex;
+  gap: 6px;
+  overflow: auto;
+  padding: 9px 12px;
+  border-top: 1px solid var(--line);
+}
+.help-chat-suggestions button {
+  border: 1px solid #dfe4dc;
+  border-radius: 99px;
+  background: white;
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 800;
+  padding: 7px 9px;
+  white-space: nowrap;
+}
+.help-chat-form {
+  display: flex;
+  gap: 8px;
+  padding: 11px;
+  border-top: 1px solid var(--line);
+  background: white;
+}
+.help-chat-form input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 11px;
+  font-size: 11px;
+  outline-color: var(--green);
+}
+.help-chat-form button {
+  width: 40px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--green);
+  color: white;
+  display: grid;
+  place-items: center;
+}
+.help-chat-form button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+@media (max-width: 900px) {
+  .header-greeting {
+    display: none;
+  }
+  .navright {
+    gap: 10px;
+  }
+  .navright .login-link span {
+    display: none;
+  }
+  .header-logout {
+    padding: 8px 9px;
+    font-size: 10px;
+  }
+}
+@media (max-width: 650px) {
+  .help-chat-root {
+    right: 12px;
+    bottom: 12px;
+  }
+  .help-chat-launcher {
+    min-height: 46px;
+    padding: 12px 15px;
+  }
+  .navright .header-find {
+    display: none;
+  }
+  .header-logout {
+    font-size: 0;
+    gap: 0;
+    width: 35px;
+    padding: 8px;
+  }
+  .header-logout svg {
+    width: 15px;
+    height: 15px;
+  }
+  .navright .login-link {
+    padding: 4px;
+  }
+}

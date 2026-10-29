@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header, Footer } from "@/components/header";
+import { HelpChatbot } from "@/components/help-chatbot";
 export const metadata: Metadata = {
   title: {
     default: "PetCare — A loving home, whenever you’re away",
@@ -25,6 +26,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <HelpChatbot />
       </body>
     </html>
   );

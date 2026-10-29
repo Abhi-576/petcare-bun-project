@@ -1,9 +1,75 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { PawPrint, Menu, X, ArrowUpRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  PawPrint,
+  Menu,
+  X,
+  ArrowUpRight,
+  LogOut,
+  LayoutDashboard,
+  MessageCircle,
+} from "lucide-react";
+
+type SessionUser = {
+  id: string;
+  name: string;
+  role: "OWNER" | "SITTER" | "ADMIN";
+  email: string;
+};
+const homeFor = (role: SessionUser["role"]) =>
+  role === "ADMIN"
+    ? "/admin/dashboard"
+    : role === "SITTER"
+      ? "/sitter/dashboard"
+      : "/owner/dashboard";
+const messagesFor = (role: SessionUser["role"]) =>
+  role === "SITTER" ? "/sitter/messages" : "/owner/messages";
+
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<SessionUser | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    let alive = true;
+    const refreshSession = () => {
+      fetch("/api/auth/me", { cache: "no-store" })
+        .then(async (response) => {
+          const data = await response.json().catch(() => ({}));
+          if (alive) setUser(response.ok ? (data.user ?? null) : null);
+        })
+        .catch(() => {
+          if (alive) setUser(null);
+        });
+    };
+    refreshSession();
+    window.addEventListener("petcare-auth-changed", refreshSession);
+    return () => {
+      alive = false;
+      window.removeEventListener("petcare-auth-changed", refreshSession);
+    };
+  }, [pathname]);
+
+  async function logout() {
+    setLoggingOut(true);
+    try {
+      const response = await fetch("/api/auth/logout", { method: "POST" });
+      if (!response.ok) throw new Error("Logout failed");
+      setUser(null);
+      setOpen(false);
+      router.replace("/");
+      router.refresh();
+    } catch {
+      window.alert("Could not log out. Please try again.");
+    } finally {
+      setLoggingOut(false);
+    }
+  }
+
   return (
     <>
       <div className="announcement">
@@ -32,14 +98,45 @@ export function Header() {
           </Link>
         </nav>
         <div className="navright">
-          <Link
-            className="login-link"
-            href="/auth/login"
-            style={{ fontSize: 12, fontWeight: 800 }}
-          >
-            Log in
-          </Link>
-          <Link className="btn btn-small" href="/sitters">
+          {user ? (
+            <>
+              <span className="header-greeting">
+                Hi, {user.name.split(" ")[0]}
+              </span>
+              <Link
+                className="login-link"
+                href={homeFor(user.role)}
+                title="Your dashboard"
+              >
+                <LayoutDashboard size={15} /> <span>Dashboard</span>
+              </Link>
+              <Link
+                className="login-link"
+                href={messagesFor(user.role)}
+                title="Messages"
+              >
+                <MessageCircle size={15} /> <span>Messages</span>
+              </Link>
+              <button
+                className="btn btn-small header-logout"
+                type="button"
+                disabled={loggingOut}
+                onClick={logout}
+              >
+                <LogOut size={14} />
+                {loggingOut ? "Logging out…" : "Log out"}
+              </button>
+            </>
+          ) : (
+            <Link
+              className="login-link"
+              href="/auth/login"
+              style={{ fontSize: 12, fontWeight: 800 }}
+            >
+              Log in
+            </Link>
+          )}
+          <Link className="btn btn-small header-find" href="/sitters">
             Find a stay <ArrowUpRight size={14} />
           </Link>
           <button
@@ -54,6 +151,7 @@ export function Header() {
     </>
   );
 }
+
 export function Footer() {
   return (
     <footer className="footer">

@@ -81,7 +81,10 @@ export async function POST(request: NextRequest) {
         type: "MESSAGE",
         title: "New booking message",
         body: "You have a new message about a booking.",
-        href: "/owner/messages",
+        href:
+          booking.sitter.userId === user.id
+            ? "/owner/messages"
+            : "/sitter/messages",
       },
     });
     return created;

@@ -50,6 +50,7 @@ const sitterLinks = [
   ["Overview", "/sitter/dashboard", LayoutDashboard],
   ["My profile", "/sitter/profile", Users],
   ["Booking requests", "/sitter/bookings", CalendarDays],
+  ["Messages", "/sitter/messages", MessageCircle],
   ["Availability", "/sitter/availability", CalendarDays],
   ["Stay updates", "/sitter/stay-updates", Camera],
   ["Earnings", "/sitter/earnings", Wallet],
