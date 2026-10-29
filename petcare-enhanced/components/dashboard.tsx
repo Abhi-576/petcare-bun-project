@@ -128,9 +128,9 @@ export function Dashboard({
   const titleMap: Record<string, string> = {
     dashboard:
       role === "owner"
-        ? "Welcome back, there."
+        ? `Welcome back, ${profileName}`
         : role === "sitter"
-          ? "Good morning, Maya."
+          ? `Good morning, ${profileName}`
           : "Overview",
     pets: "Your pet profiles",
     new: "Add a pet",
@@ -159,6 +159,9 @@ export function Dashboard({
         }
         const md = await mr.json();
         const expected = role.toUpperCase();
+        if (md.user?.name) {
+          setProfileName(md.user.name);
+        }
         if (md.user?.role !== expected) {
           window.location.href =
             md.user?.role === "ADMIN"
