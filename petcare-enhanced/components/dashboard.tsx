@@ -215,7 +215,7 @@ export function Dashboard({
                         : p.species,
                   image:
                     p.imageUrl ||
-                    "https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=240&q=80",
+                    "https://images.dog.ceo/breeds/corgi-cardigan/n02113186_6415.jpg",
                 })),
               );
           }
